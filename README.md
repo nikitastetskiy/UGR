@@ -13,6 +13,11 @@ git clone https://github.com/nikitastetskiy/UGR.git
 mv ./ugr /$HOME/
 ```
 
+- ejecute con: 
+```
+java /$HOME/UGR/PDOO/ProyectoJAVA/src/civitas/TestP5.java
+
+```
 -> :open_file_folder: [Enlace del Proyecto](./2º/PDOO/ProyectoJAVA/)
 
 En brebe re iran añadiendo diferentes asignaturas, empezando por IA (intelegincia artificial)
