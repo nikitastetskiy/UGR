@@ -37,7 +37,7 @@ _objeto_ply  ply;
 _rotacion rotacion;
 _cilindro cilindro;
 _cono cono;
-_esfera esfera; 
+_esfera esfera;
 
 // _objeto_ply *ply1;
 
@@ -182,10 +182,11 @@ switch (toupper(Tecla1)){
 	case '2':modo=EDGES;break;
 	case '3':modo=SOLID;break;
 	case '4':modo=SOLID_CHESS;break;
+	case '5':modo=SOLID_MULTICOLOR;break;
         case 'P':t_objeto=PIRAMIDE;break;
         case 'C':t_objeto=CUBO;break;
         case 'O':t_objeto=OBJETO_PLY;break;	
-        case 'R':t_objeto=ROTACION;break;		// no se pedía
+        case 'R':t_objeto=ROTACION;break;
 		case 'T':t_objeto=CILINDRO;break;
 		case 'Y':t_objeto=ESFERA;break;
 		case 'U':t_objeto=CONO;break;
@@ -261,20 +262,32 @@ glViewport(0,0,Window_width,Window_high);
 
 int main(int argc, char *argv[] )
 {
- 
-
-
-
 // perfil 
 
 vector<_vertex3f> perfil2;
 _vertex3f aux;
 
-aux.x=1.0; aux.y=-1.0; aux.z=0.0;
+
+
+
+
+aux.x=1.4;aux.y=2.0;aux.z=0.0;
 perfil2.push_back(aux);
-aux.x=1.0; aux.y=0.5; aux.z=0.0;
+aux.x=1.0;aux.y=1.6;aux.z=0.0;
 perfil2.push_back(aux);
-aux.x=1.5; aux.y=1.2; aux.z=0.0;
+aux.x=0.8;aux.y=1.2;aux.z=0.0;
+perfil2.push_back(aux);
+aux.x=0.6;aux.y=1.1;aux.z=0.0;
+perfil2.push_back(aux);
+aux.x=0.4;aux.y=1.0;aux.z=0.0;
+perfil2.push_back(aux);
+aux.x=0.4;aux.y=-0.4;aux.z=0.0;
+perfil2.push_back(aux);
+aux.x=0.5;aux.y=-0.7;aux.z=0.0;
+perfil2.push_back(aux);
+aux.x=1.0;aux.y=-1.1;aux.z=0.0;
+perfil2.push_back(aux);
+aux.x=1.0;aux.y=-1.4;aux.z=0.0;
 perfil2.push_back(aux);
 
 

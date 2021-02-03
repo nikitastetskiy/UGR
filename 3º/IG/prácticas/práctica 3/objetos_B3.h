@@ -2,16 +2,19 @@
 // Práctica 1 usando objetos
 //**************************************************************************
 
-// Cambiar sistema operativo por OSX / LINUX correspondiente
+#include <vector>
 #include <GLUT/glut.h>
 //#include <GL/gl.h>
-#include <vector>
 #include "vertex.h"
 #include <stdlib.h>
+#include "file_ply_stl.hpp"
+#include <stack>
 
+using namespace std;
 
 const float AXIS_SIZE=5000;
-typedef enum{POINTS,EDGES,SOLID_CHESS,SOLID} _modo;
+const int TAM = 3;                                      // PARA VARIAR EL TAMAÑO DEL CUBO DE RUBIK
+typedef enum{POINTS,EDGES,SOLID_CHESS,SOLID,RUBIK} _modo;
 
 //*************************************************************************
 // clase punto
@@ -39,10 +42,12 @@ public:
 	_triangulos3D();
 void 	draw_aristas(float r, float g, float b, int grosor);
 void    draw_solido(float r, float g, float b);
+void   draw_rubik();
 void 	draw_solido_ajedrez(float r1, float g1, float b1, float r2, float g2, float b2);
 void 	draw(_modo modo, float r1, float g1, float b1, float r2, float g2, float b2, float grosor);
 
 vector<_vertex3i> caras;
+vector<_vertex3f> color;
 };
 
 
@@ -55,6 +60,10 @@ class _cubo: public _triangulos3D
 public:
 
 	_cubo(float tam=0.5);
+
+       _cubo(const _cubo &otro);
+       void rotarColor(int num);
+	_cubo& operator=(const _cubo &otro);
 };
 
 
@@ -89,100 +98,41 @@ class _rotacion: public _triangulos3D
 {
 public:
        _rotacion();
-void  parametros(vector<_vertex3f> perfil1, int num1);
+void  parametros(vector<_vertex3f> perfil1, int num1, int tapas);
 
 vector<_vertex3f> perfil; 
 int num;
 };
 
-/*
-class _esfera: public _triangulos3D
-{
-public:
-       _esfera(float radio, int num1, int num2); // numero de lados y numero de puntos con el que quiero aproximar la esfera
-int num;
-};
-
-class _cono: public _triangulos3D
-{
-public:
-       _cono(float radio, int num1, int altura); // numero de lados
-int num;
-};
-
-class _cilindro: public _triangulos3D
-{
-public:
-       _cilindro(float radio, int num1, int altura); // numero de lados
-int num;
-};
-*/
-
 //*************************************************************************
-// clase objeto cilindro
+// clase cuborubik
 //*************************************************************************
 
-class _cilindro: public _triangulos3D
-{
+class _cuborubik: public _triangulos3D{
 public:
 
-  // if{
-  //    tapas == 1 -> tapa superior
-  //    tapas == 2 -> tapa inferior
-  //    tapas == 3 -> ambas tapas
-  // }
-  // else{
-  //    no hay tapas
-  // }
+	_cuborubik(float tb);
+	_cuborubik(const _cuborubik &otro);
+	void draw(_modo modo, float r, float g, float b, int grosor);
+	bool chanceMov(char giro) const;
+       void decMov(char m);
+	void borrarGiro();
+	_cuborubik& operator=(const _cuborubik &otro);
+	bool cCara1(int c);
+	bool cCara2(int c);
+	bool cCara3(int c);
+	bool cCara4(int c);
+	bool cCara5(int c);
+	bool cCara6(int c);
 
-  _cilindro(float r=1, float h=1, int n=20, int tapas=3);
-  void  rotacion();
 
-  vector<_vertex3f> perfil;
-  int num;
-  int tapas;
-};
-
-//*************************************************************************
-// clase objeto cono
-//*************************************************************************
-
-class _cono: public _triangulos3D
-{
-public:
-
-  // tapas = true -> tapa activada
-  // tapas = false -> tapa desactivada
-
-  _cono(float r=1.0, float h=1, int n=20, bool tapas=true);
-  void  rotacion();
-
-  vector<_vertex3f> perfil;
-  int num;
-  bool tapas;
-};
-
-//************************************************************************
-// clase objeto esfera
-//************************************************************************
-
-class _esfera: public _triangulos3D
-{
-public:
-  
-  // if{
-  //    tapas == 1 -> tapa superior
-  //    tapas == 2 -> tapa inferior
-  //    tapas == 3 -> ambas tapas
-  // }
-  // else{
-  //    no hay tapas
-  // }
-
-  _esfera(float r=1, int lat=6, int lon=6, int tapas=3);
-  void  rotacion();
-
-  vector<_vertex3f> perfil; 
-  int num;
-  int tapas;
+	vector<_cubo> rubik;
+	float dist;
+	int tamanio = TAM;
+	float escala;
+	bool sentido = true;
+	float giro_1,giro_2,giro_3,giro_4,giro_5,giro_6;
+	int matriz_pos[TAM][TAM][TAM];
+	stack<char> array_mov;
+	char movant = 's';
 };
