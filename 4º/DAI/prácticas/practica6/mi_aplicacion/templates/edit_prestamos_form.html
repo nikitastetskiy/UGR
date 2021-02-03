@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block  ejercicio %}
+<div class="mt-4 container d-flex justify-content-center">
+    <h1 id="h1-registro">Editar préstamo</h1>
+</div>
+  <div class="container d-flex justify-content-center">
+    <form class="justify-content-center" method="POST" action="edit" class="search_form post-form edit_prestamos">{% csrf_token %}
+        {{ form.errors }}
+        <div class="justify-content-center">
+			<p class="card-text">
+			<h5 class="text-primary">Libro</h5>
+            {{ form.libro }}
+			</p>
+		</div>
+		<div class="justify-content-center">
+			<p class="card-text">
+			<h5 class="text-primary">Fecha</h5>
+            {{ form.fecha }}
+			</p>
+		</div>
+		<div class="justify-content-center">
+			<p class="card-text">
+			<h5 class="text-primary">Usuario</h5>
+            {{ form.usuario }}
+			</p>
+		</div>
+		<button type="submit" class="btn btn-primary btn-lg btn-block">Enviar</button>
+    </form>
+  </div>
+{% endblock %}

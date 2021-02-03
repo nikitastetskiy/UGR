@@ -1,0 +1,33 @@
+{% extends "./base.html" %}
+{% block  ejercicio %}
+
+<div class="mt-4 container d-flex justify-content-center">
+    <h1 id="h1-registro">Identificador</h1>
+</div>
+  <div class="container d-flex justify-content-center">
+    <form class="col-6" method="POST">
+        <div class="form-group">
+        <input type="text" name="num" class="form-control mt-3" placeholder="Introduzca una secuencia de caracteres o digitos">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Enviar</button>
+        {% if res == "1 ) es lo de la palabara" %}
+        <div class="alert alert-success mt-3" role="alert">
+          {{ res }}
+        </div>
+        {% elif res == "2 ) es lo del correo" %}
+        <div class="alert alert-success mt-3" role="alert">
+          {{ res }}
+        </div>
+        {% elif res == "3 ) es lo del digito" %}
+        <div class="alert alert-success mt-3" role="alert">
+          {{ res }}
+        </div>
+        {% elif res == "Lo has escrito mal" %}
+        <div class="alert alert-danger mt-3" role="alert">
+          {{ res }}
+        </div>
+        {% endif %}
+    </form>
+  </div>
+{% endblock %}

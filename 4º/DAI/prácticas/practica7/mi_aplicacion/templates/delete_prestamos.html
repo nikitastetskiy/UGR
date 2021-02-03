@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block  content %}
+<div class="mt-4 container d-flex justify-content-center">
+    <h1 id="h1-registro">Eliminar préstamos</h1>
+</div>
+
+  <div class="container justify-content-center">
+    {% for prestamo in prestamos %}
+    <form class="justify-content-center" method="POST" action="delete" class="search_form post-form delete">
+		<div class="justify-content-center">
+			<p class="card-text">
+                <input type="text" name="prestamo_id" value="{{ prestamo.id }}" hidden></input>
+            <ul class="list-group">
+                <li class="list-group-item"><h5 class="text-primary">Libro:</h5> {{ prestamo.libro }}</li>
+                <li class="list-group-item"><h5 class="text-primary">Fecha:</h5> {{ prestamo.fecha }}</li>
+                <li class="list-group-item"><h5 class="text-primary">Usuario:</h5> {{ prestamo.usuario }}</li>
+            </ul>
+            </p>
+            <div class="text-right">
+                <button type="submit" class="btn btn-danger btn-lg">Borrar</button>
+            </div> 
+    </form>
+    {% endfor %}
+  </div>
+{% endblock %}

@@ -106,6 +106,7 @@ switch (modo){
 	case EDGES:draw_aristas(r1, g1, b1, grosor);break;
 	case SOLID_CHESS:draw_solido_ajedrez(r1, g1, b1, r2, g2, b2);break;
 	case SOLID:draw_solido(r1, g1, b1);break;
+	case SOLID_MULTICOLOR:draw_solido_multicolor();break;
 	}
 }
 
@@ -387,10 +388,10 @@ for(j=0; j<num; j++){
 // objeto por revolucion CILINDRO
 //************************************************************************
 
-_cilindro::_cilindro(float r, float h, int n, int tapas){
+_cilindro::_cilindro(float r, float h, int n, int tapitas){
 	
 	num = n;	
-	this->tapas = tapas;
+	this->tapitas = tapitas;
 	_vertex3f aux;
 	
 	aux.x=r; aux.y=h; aux.z=0.0;
@@ -440,7 +441,7 @@ for (j=0;j<num;j++)
   }
      
  // tapa superior
-	if (fabs(perfil[0].x)>0.0 && (tapas == 1 || tapas == 3))
+	if (fabs(perfil[0].x)>0.0 && (tapitas == 1 || tapitas == 3))
 	{
 		vertice_aux.x=0;
 		vertice_aux.y=perfil[0].y;
@@ -456,7 +457,7 @@ for (j=0;j<num;j++)
 	}
  
  // tapa inferior
-	if (fabs(perfil[num_aux-1].x)>0.0 && (tapas == 2 || tapas == 3))
+	if (fabs(perfil[num_aux-1].x)>0.0 && (tapitas == 2 || tapitas == 3))
 	{
 		vertice_aux.x=0;
 		vertice_aux.y=perfil[1].y;
@@ -476,10 +477,10 @@ for (j=0;j<num;j++)
 // objeto por revolucion CONO
 //************************************************************************
 
-_cono::_cono(float r, float h, int n, bool tapas){
+_cono::_cono(float r, float h, int n, bool tapitas){
 	
 	num = n;	
-	this->tapas = tapas;
+	this->tapitas = tapitas;
 	_vertex3f aux;
 	
 	aux.x=0.0; aux.y=h; aux.z=0.0;
@@ -526,7 +527,7 @@ vertices.resize(num_aux+num);
 	caras.push_back(cara_aux);
 
  // tapa inferior
-if (fabs(perfil[1].x)>0.0 && tapas)
+if (fabs(perfil[1].x)>0.0 && tapitas)
   {
 	vertice_aux.x=0;
     vertice_aux.y=perfil[1].y;
@@ -551,10 +552,10 @@ if (fabs(perfil[1].x)>0.0 && tapas)
 // objeto por revolucion ESFERA
 //************************************************************************
 
-_esfera::_esfera(float r, int lat, int lon, int tapas){
+_esfera::_esfera(float r, int lat, int lon, int tapitas){
 
 	num = lon;
-	this->tapas = tapas;
+	this->tapitas = tapitas;
 	_vertex3f aux;
 	
 	float increRad = M_PI/lat;
@@ -623,7 +624,7 @@ for (j=0;j<num;j++)
 	}
 
  // tapa superior
-	if (fabs(perfil[0].x)==0.0 && (tapas == 1 || tapas == 3))
+	if (fabs(perfil[0].x)==0.0 && (tapitas == 1 || tapitas == 3))
 	{
 	cara_aux._0=vertices.size()-2;
 	cara_aux._1=0;
@@ -648,7 +649,7 @@ for (j=0;j<num;j++)
 	}
  
  //tapa inferior
-if (fabs(perfil[num_aux-1].x)==0.0 && (tapas == 2 || tapas == 3))
+if (fabs(perfil[num_aux-1].x)==0.0 && (tapitas == 2 || tapitas == 3))
 {	
 	cara_aux._0=vertices.size()-1;
 	cara_aux._1=perfil.size()-3+perfil.size()-2;

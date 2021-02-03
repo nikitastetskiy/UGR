@@ -1,0 +1,47 @@
+# docker-compose.yml
+version: "3.9"
+   
+services:
+  nginx:
+    image: nginx:alpine
+    ports:
+      - 80:80
+    # directorios para el archivo de configuración y archivos del static
+    volumes:
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+      - ./static:/var/www/static 
+    depends_on:
+      - app9
+
+  app9:
+    build: .
+    container_name: app9
+    # command: gunicorn mi_sitio_web.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - ./app9:/app
+      - ./static:/var/www/static
+    depends_on:
+      - db9
+
+  db9:
+    image: postgres
+    container_name: db9
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - ./datos_db:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    restart: always
+    depends_on:
+      - db9
+    ports:
+      - 9000:9000
+
+volumes:
+  .:
+  datos_db:
+  static:

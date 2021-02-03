@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block ejercicio %}
+<div class="container d-flex justify-content-center">
+  <form class="col-6" method="POST">
+      <div class="form-group">
+      {% if session['username'] is defined: %}
+          <h1>Bienvenido usuario: {{ session['username'] }}</h1>
+      <li class="list-group-item bg-light"><p>Puedes modificar tu cuenta en <a href="http://0.0.0.0:5000/ajustes">Ajustes</a>.</p></li>
+      {% endif %}
+  </form>
+</div>
+{% endblock %}

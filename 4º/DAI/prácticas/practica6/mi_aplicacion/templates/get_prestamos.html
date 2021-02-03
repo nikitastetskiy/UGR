@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block  ejercicio %}
+<div class="mt-4 container d-flex justify-content-center">
+    <h1 id="h1-registro">Biblioteca (préstamos)</h1>
+</div>
+
+  <div class="container justify-content-center">
+    {% for prestamo in prestamos %}
+    <form class="justify-content-center" method="POST" action="mostrar_uno" class="search_form post-form get_prestamos">
+		<div class="justify-content-center">
+			<p class="card-text">
+                <input type="text" name="prestamo_id" value="{{ prestamo.id }}" hidden></input>
+            <ul class="list-group">
+                <li class="list-group-item"><h5 class="text-primary">Libro:</h5> {{ prestamo.libro }}</li>
+                <li class="list-group-item"><h5 class="text-primary">Fecha:</h5> {{ prestamo.fecha }}</li>
+                <li class="list-group-item"><h5 class="text-primary">Usuario:</h5> {{ prestamo.usuario }}</li>
+            </ul>
+            </p>
+    </form>
+    {% endfor %}
+  </div>
+{% endblock %}

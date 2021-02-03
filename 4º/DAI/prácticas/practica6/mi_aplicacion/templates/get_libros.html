@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block  ejercicio %}
+<div class="mt-4 container d-flex justify-content-center">
+    <h1 id="h1-registro">Biblioteca (libros)</h1>
+</div>
+
+  <div class="container justify-content-center">
+    {% for libro in libros %}
+    <form class="justify-content-center" method="POST" action="mostrar_uno" class="search_form post-form get_libros">
+		<div class="justify-content-center">
+			<p class="card-text">
+			<input type="text" name="libro" value="{{ libro.id }}" hidden></input>
+            <ul class="list-group">
+                <li class="list-group-item"><h5 class="text-primary">Titulo:</h5> {{ libro.titulo }}</li>
+                <li class="list-group-item"><h5 class="text-primary">Autor:</h5> {{ libro.autor }}</li>
+                <li class="list-group-item"><h5 class="text-primary">Año:</h5> {{ libro.anio }}</li>
+                <li class="list-group-item"><h5 class="text-primary">Editorial:</h5> {{ libro.editorial }}</li>
+            </ul>
+            </p>
+    </form>
+    {% endfor %}
+  </div>
+{% endblock %}

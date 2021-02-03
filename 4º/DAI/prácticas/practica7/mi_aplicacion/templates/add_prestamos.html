@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block  content %}
+<div class="mt-4 container d-flex justify-content-center">
+    <h1 id="h1-registro">Nuevo préstamo</h1>
+</div>
+  <div class="container d-flex justify-content-center">
+    <form class="justify-content-center" method="POST"action="/prestamos/add" class="search_form post-form add_libros">{% csrf_token %}
+		<div class="justify-content-center">
+			<p class="card-text">
+			<h5 class="text-primary">{{ form|crispy }}</h5>
+			</p>
+		</div>
+		<button type="submit" class="btn btn-primary btn-lg btn-block">Enviar</button>
+	</form>
+  </div>
+{% endblock %}

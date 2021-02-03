@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block ejercicio %}
+<div class="mt-4 container d-flex justify-content-center">
+  <h1 id="h1-registro">Login</h1>
+
+</div>
+<div class="container d-flex justify-content-center">
+  <form class="col-6" method="POST">
+      <div class="form-group">
+      <label for="exampleInputEmail1">Usuario</label>
+      <input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{
+          request.form.username }}">
+      </div>
+      <div class="form-group">
+          <label for="exampleInputPassword1">Contraseña</label>
+          <input type="password" name="password" class="form-control" id="exampleInputPassword1">
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-lg btn-block">Entrar</button>
+      <br>
+      <li class="list-group-item bg-light"><p>Si no tienes cuenta, pulsa <a href="http://0.0.0.0:5000/register">aquí</a>.</p></li>
+      {% if mensaje == 'Claves incorrectas' %}
+      <div class="alert alert-danger mt-3" role="alert">
+        {{ "No se ha podido conectar con las claves proporcionadas." }}
+      </div>
+      {% endif %}
+  </form>
+</div>
+{% endblock %}
