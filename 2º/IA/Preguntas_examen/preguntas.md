@@ -1,4 +1,22 @@
-# Preguntas segundo parcial
+# Preguntas primer parcial:
+
+1. El concepto de Agente. Agentes Racionales vs. Agentes Inteligentes. Arquitecturas de Agentes.
+
+2. Características de los Agentes reactivos y deliberativos. Similitudes y diferencias. Arquitecturas.
+
+3. Describir brevemente los métodos de búsqueda no informada.
+
+4. El concepto de heurística. Como se construyen las heurísticas. Uso de las heurísticas en IA.
+
+5. Los métodos de escalada. Caracterización general. Variantes.
+
+6. Características esenciales de los métodos “primero el mejor”.
+
+7. Elementos esenciales del algoritmo A*.
+
+8. Elementos esenciales de un algoritmo genético.
+
+# Preguntas segundo parcial:
 
 1. Componentes de un juego.
 

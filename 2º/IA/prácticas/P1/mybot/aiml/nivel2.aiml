@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="2.0">
+
+<!-- 0 Para ver si es libre un dia determinado <DESCRIPCION FECHA>::= <ESPECIFICA DIA> <COMPLEMENTO> 
+
+Human: Me gustaria una cita para el 13 de febrero por favor
+Robot: Este dia tiene huecos libres, le parece bien
+Human: si me parece bien
+Robot: Le viene bien por la mañana, tarde o le de igual
+Human: mañana
+Robot: Estas serian las horas disponibles 10:00 11:00 12:00 13:00
+Human: a las 10
+Robot: Perfecto, se ha reservado a las 10:00 del dia 13-02-20
+
+
+quiero una cita para el 13 de febrero por favor
+
+ -->
+<topic name="cita">
+
+
+<category>
+    <pattern> ^ cita ^ el <set>number</set> (de) * (20) (por favor) (si es posible)</pattern>
+    <template>
+        <think>
+            <set var="mes"> <map name="month_index"><star index="4"/></map> </set>
+            <set var="dia"> <map name="dosdigitos"> <star index="3"/> </map> </set>
+        </think>
+        <srai> ESTALIBRE <get var="dia"/>-<get var="mes"/>-20</srai>
+        <!--<get var="dia"/>-<get var="mes"/>-20  PARA COMPROBAR EL DIA DENTRO DE X DIAS -->
+    </template>
+</category>
+
+<category>
+    <pattern> ^ cita ^ el <set>number</set> (de) * (20) ^ TARDE (por favor) (si es posible)</pattern>
+    <template>
+        <think>
+            <set var="mes"> <map name="month_index"><star index="4"/></map> </set>
+            <set var="dia"> <map name="dosdigitos"> <star index="3"/> </map> </set>
+        </think>
+        <srai> HORASLIBRES_TARDE <get var="dia"/>-<get var="mes"/>-20</srai>
+        <!--<get var="dia"/>-<get var="mes"/>-20  PARA COMPROBAR EL DIA DENTRO DE X DIAS -->
+    </template>
+</category>
+
+<category>
+    <pattern> ^ cita ^ el <set>number</set> (de) * (20) ^ MAÑANA (por favor) (si es posible)</pattern>
+    <template>
+        <think>
+            <set var="mes"> <map name="month_index"><star index="4"/></map> </set>
+            <set var="dia"> <map name="dosdigitos"> <star index="3"/> </map> </set>
+        </think>
+        <srai> HORASLIBRES_MANIANA <get var="dia"/>-<get var="mes"/>-20</srai>
+        <!-- <get var="dia"/>-<get var="mes"/>-20 PARA COMPROBAR EL DIA DENTRO DE X DIAS -->
+    </template>
+</category>
+
+<!-- FECHA CONCRETA mal puesta 
+quiero una cita el 13 - 2 - 20
+-->
+
+<category>
+    <pattern> ^ cita ^ el <set>number</set> - <set>number</set> - <set>number</set> (por favor) (si es posible)</pattern>
+    <template>
+        <think>
+            <set var="mes"> <map name="dosdigitos"> <star index="4"/></map> </set>
+            <set var="dia"> <map name="dosdigitos"> <star index="3"/> </map> </set>
+        </think>
+        <srai> ESTALIBRE <get var="dia"/>-<get var="mes"/>-20</srai>
+    </template>
+</category>
+
+<!-- <FECHA CONCRETA>
+quiero una cita el 14-02-20
+-->
+
+<category>
+    <pattern> ^ cita ^ el * (por favor) (si es posible)</pattern>
+    <template>
+        <srai> ESTALIBRE <star index="3"/></srai>
+    </template>
+</category>
+
+<!-- FECHA CONCRETA mal puesta 
+<ESPECIFICA DIA>::= <FECHA CONCRETA> | HOY | MAÑANA| PASADO MAÑANA| PROXIMO <DIA SEMANA> | SIGUIENTE <DIA SEMANA>
+cita para hoy // POR LA TARDE - MAÑANA
+cita para MAÑANA // POR LA TARDE - MAÑANA
+cita para pasado MAÑANA // POR LA TARDE - MAÑANA
+cita para el proximo lunes // POR LA TARDE - MAÑANA
+cita para el proximo lunes por la tarde
+cita para el proximo lunes por la MAÑANA
+cita para el 24-02-20 a las 11:00
+-->
+
+<category>
+    <pattern> ^ cita ^ HOY (por favor) (si es posible)</pattern>
+    <template>
+        <srai> cita el <srai>DATE</srai></srai>
+    </template>
+</category>
+
+<category>
+    <pattern> ^ cita ^ HOY ^ TARDE (por favor) (si es posible)</pattern>
+    <template>
+        <srai> cita el <srai>DATE</srai> TARDE </srai>
+    </template>
+</category>
+
+<category>
+    <pattern> ^ cita ^ HOY ^ MAÑANA (por favor) (si es posible)</pattern>
+    <template>
+        <srai> cita el <srai>DATE</srai> MAÑANA </srai>
+    </template>
+</category>
+
+<!-- -->
+
+<category>
+    <pattern> ^ cita ^ MAÑANA (por favor) (si es posible)</pattern>
+    <template>
+        <srai> cita el <srai>DATE TOMORROW</srai></srai>
+    </template>
+</category>
+
+<category>
+    <pattern> ^ cita ^ MAÑANA ^ TARDE (por favor) (si es posible)</pattern>
+    <template>
+        <srai> cita el <srai>DATE TOMORROW</srai> TARDE </srai>
+    </template>
+</category>
+
+<category>
+    <pattern> ^ cita ^ MAÑANA ^ MAÑANA (por favor) (si es posible)</pattern>
+    <template>
+        <srai> cita el <srai>DATE TOMORROW</srai> MAÑANA </srai>
+    </template>
+</category>
+
+<!-- -->
+
+<category>
+    <pattern> ^ cita ^ PASADO MAÑANA (por favor) (si es posible)</pattern>
+    <template>
+        <srai> cita el <srai>DATE IN 2 DAYS</srai></srai>
+    </template>
+</category>
+
+<category>
+    <pattern> ^ cita ^ PASADO MAÑANA ^ TARDE (por favor) (si es posible)</pattern>
+    <template>
+        <srai> cita el <srai>DATE IN 2 DAYS</srai> TARDE </srai>
+    </template>
+</category>
+
+<category>
+    <pattern> ^ cita ^ PASADO MAÑANA ^ MAÑANA (por favor) (si es posible)</pattern>
+    <template>
+        <srai> cita el <srai>DATE IN 2 DAYS</srai> MAÑANA </srai>
+    </template>
+</category>
+
+<!-- -->
+
+<category>
+    <pattern> ^ cita ^ el [PROXIMO SIGUIENTE] <set>weekday_es</set> (por favor) (si es posible)</pattern>
+    <template>
+        <think>
+        <set var="dia"><srai>DAYS UNTIL <star index="3"/> </srai></set>
+        </think>
+        <srai> cita el <srai>DATE IN <get var="dia"/> DAYS</srai></srai>
+    </template>
+</category>
+
+<category>
+    <pattern> ^ cita ^ el [PROXIMO SIGUIENTE] <set>weekday_es</set> ^ TARDE (por favor) (si es posible)</pattern>
+    <template>
+        <think>
+        <set var="dia"><srai>DAYS UNTIL <star index="3"/> </srai></set>
+        </think>
+        <srai> cita el <srai>DATE IN <get var="dia"/> DAYS</srai> TARDE </srai>
+    </template>
+</category>
+
+<category>
+    <pattern> ^ cita ^ el [PROXIMO SIGUIENTE] <set>weekday_es</set> ^ MAÑANA (por favor) (si es posible)</pattern>
+    <template>
+        <think>
+        <set var="dia"><srai>DAYS UNTIL <star index="3"/> </srai></set>
+        <srai>DATE IN <get var="dia"/> DAYS</srai>
+        </think>
+        <srai> cita el <srai>DATE IN <get var="dia"/> DAYS</srai> MAÑANA </srai>
+    </template>
+</category>
+
+<category>
+    <pattern> ^ cita ^ el * A LAS * (por favor) (si es posible)</pattern>
+    <template>
+        <think>
+        <set var="dia"> <star index="3"/></set>
+        <set var="booleano"><srai> IS BUSY DAY <get var="dia"/> AT <star index="4"/> </srai></set>
+        </think>
+        <condition var="booleano">
+            <li value="FALSE">
+                <think>
+                <srai> MARK OCUPADO AT <star index="4"/> ON <get var="dia"/></srai>
+                </think>
+                Perfecto, se ha reservado a las <star index="4"/> del dia <get var="dia"/>
+            </li>
+            <li value="TRUE">
+                Lo siento, esta ocupado a las <star index="4"/> del dia <get var="dia"/>
+            </li>
+        </condition>
+    </template>
+</category>
+
+<category>
+    <pattern>^ NO (LO) SE ^</pattern>
+        <template>
+            Quiere cita para esta semana o la siguiente ?
+            <think>
+                <set name="topic">semana</set>
+            </think>
+        </template>
+</category>
+
+
+</topic>
+
+</aiml>

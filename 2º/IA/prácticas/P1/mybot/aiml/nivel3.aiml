@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aiml version="2.0">
+
+<!-- CONVERSACION DE NIVEL 3
+
+Human: Hola buenas
+Robot: Hola, buenas, que desea ?
+Human: Una cita
+Robot: Para cuando quiere la cita ?
+Human: No lo se
+Robot: Quiere cita para esta semana o la siguiente ?
+Human: Esta semana me vendria bien
+Robot: Tenemos fechas estos dias: 26-03-20 (jueves), 27-03-20 (Viernes), cual le gustaria ?
+Human: Me gustaria una cita el 27-03-20
+Robot: Este dia tiene huecos libres, le parece bien
+Human: Si
+Robot: Le viene bien por la mañana, tarde o le de igual ?
+Human: Por la tarde
+Robot: Estas serian las horas disponibles 16:00 18:00 19:00 20:00
+Human: a las 19:00
+Robot: Perfecto, se ha reservado a las 19:00 del dia 27-03-20
+
+ó
+
+Human: Hola buenas
+Robot: Hola, buenas, que desea ?
+Human: una cita
+Robot: Para cuando quiere la cita ?
+Human: no lo se
+Robot: Quiere cita para esta semana o la siguiente ?
+Human: Siguiente
+Robot: Tenemos fechas estos dias: 30-03-20 (Lunes), 31-03-20 (Martes), 01-04-20 (Miercoles), 02-04-20 (Jueves), 03-04-20 (Viernes), cual le gustaria ?
+Human: Me gustaria una cita el 01-04-20
+Robot: Este dia tiene huecos libres, le parece bien
+Human: Si
+Robot: Le viene bien por la mañana, tarde o le de igual ?
+Human: Mañana
+Robot: Estas serian las horas disponibles 08:00 09:00 10:00 11:00 12:00 13:00
+Human: No me vienen bien
+Robot: De acuerdo, quiere ver otros dias?
+Human: No
+Robot: Que tenga un buen dia
+
+ -->
+
+<category>
+    <pattern> ConvertirFecha * * * </pattern>
+    <template>
+        <think>
+            <set var="mes"> <map name="month_index"><star index="2"/></map> </set>
+            <set var="dia"> <map name="dosdigitos"> <star index="1"/> </map> </set>
+        </think>
+        <get var="dia"/>-<get var="mes"/>-20
+    </template>
+</category>
+
+
+<category>
+    <pattern> ^ [HOLA BUENOS DIAS] ^ </pattern>
+    <template>
+        Hola, buenas, que desea ?
+    </template>
+</category>
+
+    <category>
+        <pattern>^ CITA ^</pattern>
+        <template>
+            Para cuando quiere la cita ?
+            <think>
+                <set name="topic">cita</set>
+            </think>
+        </template>
+    </category>
+
+<topic name="semana">
+
+    <category>
+        <pattern>^ ESTA SEMANA ^</pattern>
+        <template>
+        <think>
+            <set var="fecha"><srai> ConvertirFecha <srai> date </srai> </srai></set>
+            <set var="fechasLista"></set>
+            <set var="booleano"></set>
+            <set var="contador">0</set>
+            <set var="limite"> <srai> DAYS UNTIL VIERNES </srai> </set>
+            <set var="limite"> <srai> SUMA <get var="limite"/> 1 </srai> </set>  
+        </think>
+            <condition var="contador">
+                <li><value><get var="limite"/></value></li>
+                <li>
+                    <think>
+                    <set var="booleano"><srai> ESTALIBREBOOLEANO <get var="fecha"/> </srai></set>
+                    <condition var="booleano">
+                        <li value="TRUE">
+                            <set var="fechasLista"> <get var="fechasLista"/> <get var="fecha"/> (<srai> WEEKDAY IN <get var="contador"/> DAYS</srai>), </set>
+                        </li>
+                        <li value="FALSE">
+                        </li>
+                    </condition>
+                    <set var="contador"><map name="successor"><get var="contador"/></map></set>
+                    <set var="fecha"><srai> ConvertirFecha <srai>DATE IN <get var="contador"/> DAYS</srai></srai></set>
+                    </think>
+                    <loop/>
+                </li>
+            </condition>
+            Tenemos fechas estos dias: <get var="fechasLista"/> cual le gustaria ?
+            <think>
+                <set name="topic">cita</set>
+            </think>
+        </template>
+    </category>
+
+    <category>
+        <pattern>^ SIGUIENTE ^</pattern>
+        <template>
+            <think>
+            <set var="fechasLista"></set>
+            <set var="booleano"></set>
+            <set var="contador"> <srai> DAYS UNTIL LUNES </srai> </set>
+           <condition var="contador">
+                <li value="0">
+                    <set var="contador"> <srai> SUMA <get var="contador"/> 7 </srai> </set>
+                </li>
+            </condition>
+            <set var="fecha"><srai> ConvertirFecha <srai>DATE IN <get var="contador"/> DAYS</srai></srai></set>
+            <set var="limite"> <srai> DAYS UNTIL VIERNES </srai> </set>
+            <set var="limite"> <srai> SUMA <get var="limite"/> 8 </srai> </set>   
+            </think> 
+            <condition var="contador">
+                <li><value><get var="limite"/></value></li>
+                <li>
+                    <think>
+                    <set var="booleano"><srai> ESTALIBREBOOLEANO <get var="fecha"/> </srai></set>
+                    <condition var="booleano">
+                        <li value="TRUE">
+                            <set var="fechasLista"> <get var="fechasLista"/> <get var="fecha"/> (<srai> WEEKDAY IN <get var="contador"/> DAYS</srai>), </set>
+                        </li>
+                        <li value="FALSE">
+                        </li>
+                    </condition>
+                    <set var="contador"><map name="successor"><get var="contador"/></map></set>
+                    <set var="fecha"><srai> ConvertirFecha <srai>DATE IN <get var="contador"/> DAYS</srai></srai></set>
+                    </think>
+                    <loop/>
+                </li>
+            </condition>
+            Tenemos fechas estos dias: <get var="fechasLista"/> cual le gustaria ?
+            <think>
+                <set name="topic">cita</set>
+            </think>
+        </template>
+    </category>
+
+</topic>
+
+
+
+
+</aiml>
