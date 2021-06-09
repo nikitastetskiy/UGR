@@ -64,4 +64,4 @@ Repositorio con todos los trabajos desarrollados completamente o en colaboració
 </details></p>
 
 ## License
-Este proyecto está licenciado bajo GNU General Public License v3.0 - ver el fichero [LICENSE.md](LICENSE.md) para más detalles
+Este proyecto está licenciado bajo GNU General Public License v3.0 - ver el fichero [LICENSE](LICENSE) para más detalles.
