@@ -1,0 +1,25 @@
+{% extends "./base.html" %}
+{% block  ejercicio %}
+
+<div class="mt-4 container d-flex justify-content-center">
+    <h1 id="h1-registro">Corchetes</h1>
+</div>
+  <div class="container d-flex justify-content-center">
+    <form class="col-6" method="POST">
+        <div class="form-group">
+        <input type="text" name="num" class="form-control mt-3" placeholder="Introduzca un nº aleatorio">
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-lg btn-block">Enviar</button>
+        {% if sol == true %}
+        <div class="alert alert-success mt-3" role="alert">
+          {{ res }}
+        </div>
+        {% elif sol == false %}
+        <div class="alert alert-danger mt-3" role="alert">
+          {{ res }}
+        </div>
+        {% endif %}
+    </form>
+  </div>
+{% endblock %}

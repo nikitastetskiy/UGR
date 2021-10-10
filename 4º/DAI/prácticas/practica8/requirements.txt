@@ -1,0 +1,6 @@
+# requirements.txt
+flask==1.1
+pickleshare==0.7.5
+pymongo
+random-object-id
+flask-restful

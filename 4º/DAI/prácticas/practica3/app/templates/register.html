@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block ejercicio %}
+<div class="mt-4 container d-flex justify-content-center">
+  <h1 id="h1-registro">Registro</h1>
+</div>
+<div class="container d-flex justify-content-center">
+  <form class="col-6" method="POST">
+      <div class="form-group">
+      <label for="exampleInputEmail1">Usuario</label>
+      <input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{
+          request.form.username }}">
+      </div>
+      <div class="form-group">
+          <label for="exampleInputPassword1">Contraseña</label>
+          <input type="password" name="password1" class="form-control" id="exampleInputPassword1">
+      </div>
+
+      <div class="form-group">
+          <label for="exampleInputPassword1">Repetir contraseña</label>
+          <input type="password" name="password2" class="form-control" id="exampleInputPassword1">
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg btn-block">Registrarme</button>
+      {% if mensaje == 'Las contraseñas no coinciden' %}
+      <div class="alert alert-danger mt-3" role="alert">
+        {{ 'Las contraseñas no coinciden.' }}
+      </div>
+      {% elif mensaje == 'Correcto' %}
+      <div class="alert alert-success mt-3" role="alert">
+          {{ "Usuario registrado correctamente." }}
+      </div>
+      {% elif mensaje == "El usuario ya existe" %}
+      <div class="alert alert-danger mt-3" role="alert">
+          {{ "El usuario ya existe." }}
+      </div>
+      {% endif %}
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="author" content="Nikita Stetskiy">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel ="icon logo" href="{{ url_for('static', filename='imgs/logo.png')}}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/estilos.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script>
+        $(document).ready(function(){
+            var original = $(".index").css('background-color')
+            var original_texto = $(".index").css('color')
+            $("#boton_luz").click(function(){
+                $(".index").css('background-color', original);
+                $(".index").css('color', original_texto);
+            });
+            $("#boton_nocturno").click(function(){
+                $(".index").css('background-color', '#282e37');
+                $(".index").css('color', '#d7dfec');
+            });
+        });
+      </script>
+
+  </head>
+  <body>
+
+    <!-- NAVBAR -->
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <img id="main-icon" src="{{ url_for('static', filename='imgs/logo.png')}}" alt="Logo" style="width:40px;margin-right:10px;">
+      <div class="botones_jquery">
+        <button name="boton_nocturno" id="boton_nocturno" type="button" class="btn btn-dark" style="margin-right:10px;"> Dark </button>
+        <button name="boton_luz" id="boton_luz"  type="button" class="btn btn-secondary" style="margin-right:15px;"> Light </button>
+      </div>
+      <a class="navbar-brand" href="#">Práctica de Nikita Stetskiy</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav ml-auto">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Ejercicios
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="http://0.0.0.0:5000/corchete">Ejercicio Corchetes</a>
+              <a class="dropdown-item" href="http://0.0.0.0:5000/identificador">Ejercicio Identificador</a>
+              <a class="dropdown-item" href="http://0.0.0.0:5000/criba">Ejercicio Criba</a>
+              <a class="dropdown-item" href="http://0.0.0.0:5000/fibonacci">Ejercicio Fibonacci</a>
+              <a class="dropdown-item" href="http://0.0.0.0:5000/ordenamiento">Ejercicio Ordenamiento</a>
+              <a class="dropdown-item" href="http://0.0.0.0:5000/subirnota">Ejercicio Subir Nota</a>
+            </div>
+          </li>
+          {% if session["logged"] %}
+          <a class="nav-item nav-link" href="http://0.0.0.0:5000/perfil">Perfil</a>
+          <a class="nav-item nav-link" href="http://0.0.0.0:5000/ajustes">Ajustes</a>
+          {% else %}
+          <a class="nav-item nav-link" href="http://0.0.0.0:5000/login">Perfil</a>
+          {% endif %}
+          {% if session["logged"] %}
+          <a class="nav-item nav-link" href="http://0.0.0.0:5000/logout">Salir</a>
+          {% endif %}
+          <a class="nav-item nav-link" href="http://0.0.0.0:5000/mongobd">MongoDB</a>
+          <a class="nav-item nav-link active" href="http://0.0.0.0:5000/">Home <span class="sr-only">(current)</span></a>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Aside y main -->
+    <div class="container-fluid">
+      <div class="row">
+          <aside class="col-2 d-flex justify-content-center bg-light">
+              <ul class="list-group list-group-flush bg-light">
+                  <li class="list-group-item bg-light"><strong>Historial</strong></li>
+                  {% if session.get('logged') == True: %}
+                  {% if session["url3"] %}
+                    <a class='nav-link' href='{{ session["url3"] }}'>{{ session["name3"] }}</a>
+                  {% endif %}
+                  {% if session["url2"] %}
+                    <a class='nav-link' href='{{ session["url2"] }}'>{{ session["name2"] }}</a>
+                  {% endif %}
+                  {% if session["url1"] %}
+                    <a class='nav-link' href='{{ session["url1"] }}'>{{ session["name1"] }}</a>
+                  {% endif %}
+                  {% endif %}
+                </ul>
+          </aside>
+
+        
+          <main class="col-10">
+            <div class="index">
+            {% block  ejercicio %}{% endblock %}
+          </div>
+          </main>   
+      </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="static/js/app.js"></script>
+  </body>
+</html>

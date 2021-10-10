@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block ejercicio %}
+<div class="mt-4 container d-flex justify-content-center">
+  <h1 id="h1-registro">Cambiar contraseña</h1>
+</div>
+<div class="container d-flex justify-content-center">
+  <form class="col-6" method="POST">
+      <div class="form-group">
+      <label for="exampleInputEmail1">Usuario</label>
+      <input type="text" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" value="{{
+          session['username'] }}" readonly>
+      </div>
+      <div class="form-group">
+          <label for="exampleInputPassword1">Contraseña</label>
+          <input type="password" name="password1" class="form-control" id="exampleInputPassword1" placeholder="Nueva contraseña">
+      </div>
+
+      <div class="form-group">
+          <label for="exampleInputPassword1">Repetir contraseña</label>
+          <input type="password" name="password2" class="form-control" id="exampleInputPassword1" placeholder="Repita la contraseña">
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg btn-block">Cambiar contraseña</button>
+      {% if mensaje == 'Las contraseñas no coinciden.' %}
+      <div class="alert alert-danger mt-3" role="alert">
+          {{mensaje}}
+      </div>
+      {% elif mensaje == 'La contraseña ha sido cambiada.' %}
+      <div class="alert alert-success mt-3" role="alert">
+          {{mensaje}}
+      </div>
+    {% endif %}
+  </form>
+
+</div>
+{% endblock %}

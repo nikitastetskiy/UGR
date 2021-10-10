@@ -1,0 +1,7 @@
+#!/bin/csh -vx
+echo "" >> salida_normal.dat
+@ i = 2000
+while($i < 500001)
+./algoritmo_normal $i >> salida_normal.dat
+@ i += 2000
+end
