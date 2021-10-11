@@ -61,6 +61,12 @@ Repositorio con todos los trabajos desarrollados completamente o en colaboració
     </blockquote> </dd>
 </dl>
 
+- ejecute con: 
+```
+java /$HOME/UGR/PDOO/ProyectoJAVA/src/civitas/TestP5.java
+
+```
+-> :open_file_folder: [Enlace del Proyecto](./2º/PDOO/ProyectoJAVA/)
 </details></p>
 
 ## License
